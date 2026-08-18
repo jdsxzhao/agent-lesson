@@ -1,0 +1,27 @@
+{
+  "name": "agent-lesson",
+  "version": "0.1.0",
+  "description": "A minimal TypeScript scaffold for building an interactive terminal agent.",
+  "type": "module",
+  "bin": {
+    "yl": "dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli.ts",
+    "start": "npm run build && node dist/cli.js",
+    "test": "npm run build && tsx --test test/*.test.ts",
+    "prepare": "npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.0"
+  }
+}
