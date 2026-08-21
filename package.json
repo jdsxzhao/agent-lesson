@@ -23,5 +23,10 @@
     "@types/node": "^22.0.0",
     "tsx": "^4.20.0",
     "typescript": "^5.8.0"
+  },
+  "repository": "git@github.com:jdsxzhao/agent-lesson.git",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.120.0",
+    "openai": "^7.5.0"
   }
 }
