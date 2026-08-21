@@ -46,8 +46,8 @@ export async function runSession({
 
   output.write(
     "\nAgent Lesson - A minimal TypeScript agent playground\n\n" +
-      "Type a message, or 'exit'/'quit' to leave.\n" +
-      "Try the example input: foo\n\n",
+    "Type a message, or 'exit'/'quit' to leave.\n" +
+    "Try the example input: foo\n\n",
   );
 
   readline.setPrompt("> ");
@@ -69,7 +69,22 @@ export async function runSession({
       }
 
       try {
-        output.write(`${await agent.respond(message)}\n\n`);
+        const response = await agent.respond(message, (event) => {
+          switch (event.type) {
+            case "tool_call":
+              output.write(
+                `\n[tool] ${event.name}\n` +
+                `[args] ${event.arguments}\n`,
+              );
+              break;
+            case "tool_result":
+              output.write(
+                `[result] ${event.result}\n\n`,
+              );
+              break;
+          }
+        });
+        output.write(`${response.content}\n\n`);
       } catch (error) {
         const detail = error instanceof Error ? error.message : String(error);
         output.write(`[agent error] ${detail}\n\n`);
