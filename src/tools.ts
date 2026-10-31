@@ -1,6 +1,7 @@
 import { exec as execCallback } from "node:child_process";
 import * as fs from "node:fs/promises";
 import { promisify } from "node:util";
+import fg from "fast-glob";
 
 import type Anthropic from "@anthropic-ai/sdk";
 import OpenAI from "openai";
@@ -268,9 +269,12 @@ const listFiles = async (toolArguments: string): Promise<string> => {
 };
 
 const grepSearch = async (toolArguments: string): Promise<string> => {
-  const { pattern, path, include } = JSON.parse(toolArguments);
-  const files = await fs.readdir(path);
-  const matchingFiles = files.filter((file: string) => file.includes(pattern));
+  const { pattern, path = '.' } = JSON.parse(toolArguments);
+  const matchingFiles = await fg(pattern, {
+    cwd: path,
+    onlyFiles: true,
+    dot: true,
+  });
   return matchingFiles.join("\n");
 };
 
