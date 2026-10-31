@@ -1,0 +1,43 @@
+test/agent.test.ts
+  s_07b81f1f413bd8::t_85570732e6f916 128-151
+  s_07b81f1f413bd8::t_ed05d3b5eb551d 26,29,65-66,86-88,90-93,95-99,101-115,117-118,120-122,124-125,127
+  s_07b81f1f413bd8::t_2fc25c46aa4149 2,6-14,23,67,89,94,100,116,119,123,126
+  s_07b81f1f413bd8::t_ac0e3dab9866a7 62,68-73,75-85
+src/agent.ts
+  s_07b81f1f413bd8::t_85570732e6f916 122-124,141
+  s_07b81f1f413bd8::t_ed05d3b5eb551d 33-35,37-42,56-79,81-83,88
+  s_6dd9513b6e2c04::t_44bf166ab8154c 3,7-11,13-17,22-26,29-32,36,43-53,55,80,87,89-92,94,103-104,106-113,134-140,148-152
+test/prompt.test.ts
+  s_07b81f1f413bd8::t_9c36656d9775f2 1-57
+src/systemPrompt.ts
+  s_07b81f1f413bd8::t_d4c86d5069df7e 15-28
+  s_6dd9513b6e2c04::t_69ecd9c7fc61e9 1-14,29-80
+src/prompt.ts
+  s_6dd9513b6e2c04::t_c72191d5ad66fc 1-35
+src/session.ts
+  s_6dd9513b6e2c04::t_accbe5370c7030 17,40-43,77,92,94-100
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "2ca27da6bb778537341cb8ca7e2c020568d5461d",
+  "prompts": {},
+  "sessions": {
+    "s_07b81f1f413bd8": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a19072-4a39-7340-ba4e-55b1be5f2681",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "yanling <zxy249237@antgroup.com>"
+    },
+    "s_6dd9513b6e2c04": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a17b72-49aa-73f1-b0d7-8a2aa13572cb",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "yanling <zxy249237@antgroup.com>"
+    }
+  }
+}
