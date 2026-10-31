@@ -14,6 +14,7 @@ function isTTY(stream: NodeJS.ReadableStream | NodeJS.WritableStream): boolean {
   return "isTTY" in stream && stream.isTTY === true;
 }
 
+let currentRequest: AbortController | undefined;
 export async function runSession({
   input,
   output,
@@ -36,6 +37,10 @@ export async function runSession({
   };
 
   readline.once("SIGINT", () => {
+    if (currentRequest) {
+      currentRequest.abort();
+      output.write("\n[interrupted]\n\n");
+    }
     interrupted = true;
     writeGoodbye();
     readline.close();
@@ -69,6 +74,7 @@ export async function runSession({
       }
 
       try {
+        currentRequest = new AbortController();
         const response = await agent.respond(message, (event) => {
           switch (event.type) {
             case "tool_call":
@@ -83,11 +89,15 @@ export async function runSession({
               );
               break;
           }
-        });
+        }, currentRequest.signal);
         output.write(`${response.content}\n\n`);
-      } catch (error) {
-        const detail = error instanceof Error ? error.message : String(error);
-        output.write(`[agent error] ${detail}\n\n`);
+      } catch (error: any) {
+        if (error instanceof Error && error.name === "AbortError") {
+          // Ctrl+C 导致的正常中断，不显示 agent error
+        } else {
+          const detail = error instanceof Error ? error.message : String(error);
+          output.write(`[agent error] ${detail}\n\n`);
+        }
       }
       readline.prompt();
     }
